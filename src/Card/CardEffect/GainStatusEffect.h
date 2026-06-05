@@ -1,0 +1,31 @@
+//
+// Created by lll on 2026/6/4.
+//
+
+#ifndef CARDBATTLE_DEXTERITYEFFECT_H
+#define CARDBATTLE_DEXTERITYEFFECT_H
+#include "CardEffect.h"
+#include "../../Entity/StatusEffect/DexterityStatus.h"
+
+class GainStatusEffect : public CardEffect{
+private:
+    std::unique_ptr<StatusEffect> status;
+
+public:
+    GainStatusEffect(std::unique_ptr<StatusEffect> status):
+        status(std::move(status)) {};
+
+    void apply(Player& player, std::vector<Character*>& targets) override {
+        for (Character* target : targets) {
+            if (target != nullptr && !target->isDead()) {
+                target->addStatus(status->clone());
+            }
+        }
+    };
+
+    std::unique_ptr<CardEffect> clone() const override {
+        return std::make_unique<GainStatusEffect>(status->clone());
+    };
+};
+
+#endif //CARDBATTLE_DEXTERITYEFFECT_H
