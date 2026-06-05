@@ -67,6 +67,7 @@ void Battle::playerAct() {
     std::cout << "Choose a card index: ";
     int cardIndex;
     std::cin >> cardIndex;
+    // 输入0表示主动将回合结束
     if (cardIndex == 0) {
         player.gainEnergy(-player.getEnergy());
         return;
@@ -79,13 +80,19 @@ void Battle::playerAct() {
         return;
     }
 
-    TargetType targetType = card->getTargetType();
+    std::vector<Character*> targets = resolveTargets(card);
+
+    player.deckManager.playHandCard(playIndex, player, targets);
+}
+
+std::vector<Character *> Battle::resolveTargets(Card *card) {
     std::vector<Character*> targets = {};
+    TargetType targetType = card->getTargetType();
 
     switch (targetType) {
         case TargetType::Enemy: {
             Character* target = chooseEnemyTarget();
-            if (target == nullptr) return;
+            if (target == nullptr) return targets;
             targets.push_back(target);
             break;
         }
@@ -106,7 +113,7 @@ void Battle::playerAct() {
         }
     }
 
-    player.deckManager.playHandCard(playIndex, player, targets);
+    return targets;
 }
 
 void Battle::enemyAct() {

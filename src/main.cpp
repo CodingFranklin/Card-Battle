@@ -22,7 +22,7 @@ int main() {
     Player player("诗人", 80.0f, 3);
 
     Enemy slime("蟑螂", 15.0f, 6.0f);
-    Enemy dragon("恶魔", 75.0f, 10.0f);
+    Enemy dragon("恶魔", 75.0f, 15.0f);
 
     std::vector<Enemy*> enemies = { &slime, &dragon };
 
