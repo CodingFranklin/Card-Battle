@@ -30,12 +30,13 @@ class Player : public Character {
         void reloadEnergy();
         void gainEnergy(int amount);
 
-        void handleTurnStart() override;
-        void handleTurnEnd() override;
-
         // getter
         int getEnergy() const;
         int getMaxEnergy() const;
+
+    protected:
+        void handleTurnStart() override;
+        void handleTurnEnd() override;
 };
 
 

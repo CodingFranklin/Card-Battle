@@ -7,10 +7,9 @@
 #include <memory>
 #include <vector>
 
-#include "CardEffect.h"
+#include "Effect.h"
 
-
-class GainArmorEffect: public CardEffect {
+class GainArmorEffect: public Effect {
 private:
     int armor;
 
@@ -25,7 +24,7 @@ public:
         }
     };
 
-    std::unique_ptr<CardEffect> clone() const override {
+    std::unique_ptr<Effect> clone() const override {
         return std::make_unique<GainArmorEffect>(*this);
     }
 };

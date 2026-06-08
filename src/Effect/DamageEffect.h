@@ -4,10 +4,10 @@
 
 #ifndef CARDBATTLE_DAMAGEEFFECT_H
 #define CARDBATTLE_DAMAGEEFFECT_H
-#include "CardEffect.h"
-#include "../../Entity/Player.h"
+#include "Effect.h"
+#include "../Entity/Player.h"
 
-class DamageEffect : public CardEffect{
+class DamageEffect : public Effect{
 private:
     int damage;
 
@@ -22,7 +22,7 @@ public:
         }
     };
 
-    std::unique_ptr<CardEffect> clone() const override {
+    std::unique_ptr<Effect> clone() const override {
         return std::make_unique<DamageEffect>(*this);
     };
 };

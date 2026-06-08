@@ -15,10 +15,11 @@ class Enemy : public Character{
     public:
         Enemy(const std::string& name, float maxHealth, float damage);
 
+        float getDamage() const;
+
+    protected:
         void handleTurnStart() override;
         void handleTurnEnd() override;
-
-        float getDamage() const;
 };
 
 

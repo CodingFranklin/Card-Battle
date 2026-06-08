@@ -46,7 +46,7 @@ bool Card::play(Player &player, std::vector<Character *> &targets) {
     return true;
 }
 
-void Card::addEffect(std::unique_ptr<CardEffect> effect) {
+void Card::addEffect(std::unique_ptr<Effect> effect) {
     effects.push_back(std::move(effect));
 }
 

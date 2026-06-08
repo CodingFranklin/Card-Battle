@@ -4,10 +4,9 @@
 
 #ifndef CARDBATTLE_GAINENERGYEFFECT_H
 #define CARDBATTLE_GAINENERGYEFFECT_H
-#include "CardEffect.h"
-#include "../../Entity/Player.h"
+#include "Effect.h"
 
-class GainEnergyEffect: public CardEffect {
+class GainEnergyEffect: public Effect {
 private:
     int amount;
 public:
@@ -17,7 +16,7 @@ public:
         player.gainEnergy(amount);
     };
 
-    std::unique_ptr<CardEffect> clone() const override {
+    std::unique_ptr<Effect> clone() const override {
         return std::make_unique<GainEnergyEffect>(*this);
     };
 };

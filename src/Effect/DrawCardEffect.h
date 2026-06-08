@@ -4,10 +4,9 @@
 
 #ifndef CARDBATTLE_DRAWCARDEFFECT_H
 #define CARDBATTLE_DRAWCARDEFFECT_H
-#include "CardEffect.h"
-#include "../../Entity/Player.h"
+#include "Effect.h"
 
-class DrawCardEffect : public CardEffect {
+class DrawCardEffect : public Effect {
 private:
     int qty;
 public:
@@ -17,7 +16,7 @@ public:
         player.deckManager.drawCards(qty);
     };
 
-    std::unique_ptr<CardEffect> clone() const override {
+    std::unique_ptr<Effect> clone() const override {
         return std::make_unique<DrawCardEffect>(*this);
     }
 };

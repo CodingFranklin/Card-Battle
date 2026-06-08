@@ -8,16 +8,15 @@
 #include <vector>
 #include <memory>
 
-#include "../../Entity/Character.h"
+#include "../Entity/Character.h"
+#include "../Entity/Player.h"
 
-class Player;
 
-
-class CardEffect {
+class Effect {
 public:
-    virtual ~CardEffect() = default;
+    virtual ~Effect() = default;
     virtual void apply(Player& player, std::vector<Character*>& targets) = 0;
-    virtual std::unique_ptr<CardEffect> clone() const = 0;
+    virtual std::unique_ptr<Effect> clone() const = 0;
 
 };
 

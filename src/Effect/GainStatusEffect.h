@@ -4,10 +4,9 @@
 
 #ifndef CARDBATTLE_DEXTERITYEFFECT_H
 #define CARDBATTLE_DEXTERITYEFFECT_H
-#include "CardEffect.h"
-#include "../../Entity/StatusEffect/DexterityStatus.h"
+#include "Effect.h"
 
-class GainStatusEffect : public CardEffect{
+class GainStatusEffect : public Effect{
 private:
     std::unique_ptr<StatusEffect> status;
 
@@ -23,7 +22,7 @@ public:
         }
     };
 
-    std::unique_ptr<CardEffect> clone() const override {
+    std::unique_ptr<Effect> clone() const override {
         return std::make_unique<GainStatusEffect>(status->clone());
     };
 };

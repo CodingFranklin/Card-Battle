@@ -10,7 +10,7 @@
 #include <vector>
 
 
-#include "CardEffect/CardEffect.h"
+#include "../Effect/Effect.h"
 class Player;
 class Character;
 
@@ -36,7 +36,7 @@ private:
     CardType type;
     TargetType targetType;
 
-    std::vector<std::unique_ptr<CardEffect>> effects;
+    std::vector<std::unique_ptr<Effect>> effects;
 
 public:
     Card(
@@ -59,7 +59,7 @@ public:
     CardType getType() const;
     TargetType getTargetType() const;
 
-    void addEffect(std::unique_ptr<CardEffect> effect);
+    void addEffect(std::unique_ptr<Effect> effect);
 
     virtual std::unique_ptr<Card> clone() const;
 };
