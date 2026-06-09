@@ -5,6 +5,7 @@
 #ifndef CARDBATTLE_DRAWCARDEFFECT_H
 #define CARDBATTLE_DRAWCARDEFFECT_H
 #include "Effect.h"
+#include "../Entity/Player.h"
 
 class DrawCardEffect : public Effect {
 private:
@@ -12,8 +13,8 @@ private:
 public:
     DrawCardEffect(int qty, TargetType targetType): Effect(targetType), qty(qty) {};
 
-    void apply(Player &player, std::vector<Character *> &targets) override {
-        player.deckManager.drawCards(qty);
+    void apply(ActionContext& context) override {
+        context.player.deckManager.drawCards(qty);
     };
 
     std::unique_ptr<Effect> clone() const override {

@@ -5,6 +5,7 @@
 #ifndef CARDBATTLE_GAINENERGYEFFECT_H
 #define CARDBATTLE_GAINENERGYEFFECT_H
 #include "Effect.h"
+#include "../Game/ActionContext.h"
 
 class GainEnergyEffect: public Effect {
 private:
@@ -12,8 +13,8 @@ private:
 public:
     GainEnergyEffect(int amount, TargetType targetType): Effect(targetType), amount(amount) {}
 
-    void apply(Player &player, std::vector<Character *> &targets) override {
-        player.gainEnergy(amount);
+    void apply(ActionContext& context) override {
+        context.player.gainEnergy(amount);
     };
 
     std::unique_ptr<Effect> clone() const override {

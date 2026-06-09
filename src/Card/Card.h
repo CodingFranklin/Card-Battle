@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-
-#include "../Effect/Effect.h"
+struct ActionContext;
+class Effect;
 class Player;
 class Character;
 
@@ -21,20 +21,12 @@ enum class CardType {
     Status      // 状态牌
 };
 
-enum class TargetType {
-    Enemy,       // 选择一个敌人
-    Self,        // 目标是玩家自己
-    AllEnemies, // 所有敌人，群攻
-    None
-};
-
 class Card {
 private:
     std::string name;
     std::string description;
     int cost;
     CardType type;
-    TargetType targetType;
 
     std::vector<std::unique_ptr<Effect>> effects;
 
@@ -43,13 +35,12 @@ public:
         const std::string& name,
         const std::string& description,
         int cost,
-        CardType type,
-        TargetType targetType
+        CardType type
     );
 
-    virtual ~Card() = default;
+    virtual ~Card();
 
-    bool play(Player &player, std::vector<Character *> &targets);
+    bool play(ActionContext& context);
 
     bool canPlay(const Player& player) const;
 
@@ -60,8 +51,6 @@ public:
     int getCost() const;
 
     CardType getType() const;
-
-    TargetType getTargetType() const;
 
     bool requiresSelectedTarget() const;
 

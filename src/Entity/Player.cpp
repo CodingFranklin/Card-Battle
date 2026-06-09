@@ -6,8 +6,6 @@
 
 #include <iostream>
 
-#include "../Card/Card.h"
-
 Player::Player(const std::string& name, int maxHealth, int maxEnergy):
     Character(name, maxHealth),
     curEnergy(maxEnergy),

@@ -16,11 +16,11 @@ private:
 public:
     GainArmorEffect(int armor, TargetType targetType): Effect(targetType), armor(armor) {};
 
-    void apply(Player& player, std::vector<Character*>& targets) override {
+    void apply(ActionContext& context) override {
+        auto targets = resolveTargets(context);
+
         for (Character* target : targets) {
-            if (target != nullptr && !target->isDead()) {
-                target->gainArmor(armor);
-            }
+            target->gainArmor(armor);
         }
     };
 

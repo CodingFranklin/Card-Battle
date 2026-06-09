@@ -2,44 +2,44 @@
 // Created by lll on 2026/5/26.
 //
 
-#include "Card.h"
-
-#include "../Entity/Player.h"
-#include "../Entity/Character.h"
-
 #include <iostream>
 #include <utility>
+
+#include "Card.h"
+#include "../Game/GameType.h"
+#include "../Entity/Player.h"
+#include "../Effect/Effect.h"
+#include "../Game/ActionContext.h"
 
 Card::Card(
     const std::string& name,
     const std::string& description,
     int cost,
-    CardType type,
-    TargetType targetType
+    CardType type
 )
     : name(name),
       description(description),
       cost(cost),
-      type(type),
-      targetType(targetType)
-{
-}
+      type(type)
+{}
+
+Card::~Card() = default;
 
 bool Card::canPlay(const Player& player) const {
     return player.getEnergy() >= cost;
 }
 
-bool Card::play(Player &player, std::vector<Character *> &targets) {
-    if (!canPlay(player)) {
+bool Card::play(ActionContext& context) {
+    if (!canPlay(context.player)) {
         std::cout << "Not enough energy." << std::endl;
         return false;
     }
 
-    player.spendEnergy(cost);
+    context.player.spendEnergy(cost);
 
     for (const auto& effect : effects) {
         if (effect != nullptr) {
-            effect->apply(player, targets);
+            effect->apply(context);
         }
     }
 
@@ -55,8 +55,7 @@ std::unique_ptr<Card> Card::clone() const {
         name,
         description,
         cost,
-        type,
-        targetType
+        type
     );
 
     for (const auto& effect : effects) {
@@ -84,14 +83,10 @@ CardType Card::getType() const {
     return type;
 }
 
-TargetType Card::getTargetType() const {
-    return targetType;
-}
-
 bool Card::requiresSelectedTarget() const {
     for (const auto& effect : effects) {
         if (effect != nullptr &&
-            effect->getTargetType() == TargetType::Enemy) {
+            effect->getTargetType() == TargetType::Single) {
             return true;
             }
     }

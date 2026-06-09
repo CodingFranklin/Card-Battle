@@ -10,6 +10,7 @@
 #include <iostream>
 #include <ostream>
 
+#include "ActionContext.h"
 #include "../Card/Card.h"
 
 
@@ -74,57 +75,49 @@ void Battle::playerAct() {
     }
     int playIndex = cardIndex - 1;
 
+    //获取即将打出的牌
     Card* card = player.deckManager.getHandCard(playIndex);
     if (card == nullptr) {
         std::cout << "Invalid card index." << std::endl;
         return;
     }
 
+    //获取选择的目标
     Character* selectedTarget = nullptr;
 
     if (card->requiresSelectedTarget()) {
+        //选择目标
         selectedTarget = chooseEnemyTarget();
-    }
 
-    player.deckManager.playHandCard(playIndex, player, selectedTarget);
-}
-
-std::vector<Character *> Battle::resolveTargets(Card *card) {
-    std::vector<Character*> targets = {};
-    TargetType targetType = card->getTargetType();
-
-    switch (targetType) {
-        case TargetType::Enemy: {
-            Character* target = chooseEnemyTarget();
-            if (target == nullptr) return targets;
-            targets.push_back(target);
-            break;
-        }
-        case TargetType::Self: {
-            targets.push_back(&player);
-            break;
-        }
-        case TargetType::AllEnemies: {
-            for (Enemy* enemy : enemies) {
-                if (enemy != nullptr && !enemy->isDead()) {
-                    targets.push_back(enemy);
-                }
-            }
-            break;
-        }
-        case TargetType::None: {
-            break;
+        if (selectedTarget == nullptr) {
+            return;
         }
     }
 
-    return targets;
+    //生成context
+    ActionContext context(player, player, enemies, selectedTarget);
+
+    player.deckManager.playHandCard(playIndex, context);
 }
+
 
 void Battle::enemyAct() {
     for (Enemy* enemy : enemies) {
-        if (!enemy->isDead()) {
-            std::cout << enemy->getName() << " attacks player" << std::endl;
-            enemy->dealDamageTo(player, enemy->getDamage());
+        if (enemy->isDead()) {
+            continue;
+        }
+
+        ActionContext context{
+            *enemy,
+            player,
+            enemies,
+            &player
+        };
+
+        enemy->doAction(context);
+
+        if (player.isDead()) {
+            break;
         }
     }
 
@@ -136,7 +129,7 @@ void Battle::enemyAct() {
 }
 
 /*
- * ========= 所有有关回合内发生的事件在此添加修改 =========
+ * ============== 所有有关回合内发生的事件在此添加修改 ==============
  */
 void Battle::bindEvents() {
     turnManager.onPlayerTurnStart.addListener([this]() {
@@ -168,8 +161,10 @@ void Battle::bindEvents() {
         for (Enemy* enemy : enemies) {
             if (!enemy->isDead()) {
                 enemy->endTurn();
+                enemy->clearArmor(); // 按情况来定
             }
         }
+        player.clearArmor();
     });
 }
 
@@ -297,6 +292,7 @@ void Battle::printBattleStatus() const {
                   << std::endl;
 
         std::cout << "状态：" << enemy->getStatusText() << std::endl;
+        enemy->printNextAction();
     }
 
     std::cout << "===================================\n" << std::endl;

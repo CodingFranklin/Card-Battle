@@ -14,11 +14,11 @@ public:
     GainStatusEffect(std::unique_ptr<StatusEffect> status, TargetType targetType):
         Effect(targetType), status(std::move(status)) {};
 
-    void apply(Player& player, std::vector<Character*>& targets) override {
+    void apply(ActionContext& context) override {
+        auto targets = resolveTargets(context);
+
         for (Character* target : targets) {
-            if (target != nullptr && !target->isDead()) {
-                target->addStatus(status->clone());
-            }
+            target->addStatus(status->clone());
         }
     };
 

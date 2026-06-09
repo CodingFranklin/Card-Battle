@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 
-class Card;
+#include "../Card/Card.h"
 class Character;
 class Player;
 
@@ -15,9 +15,12 @@ class Player;
 class DeckManager {
     public:
     std::vector<std::unique_ptr<Card>> mainDeck;
+
     private:
     std::vector<std::unique_ptr<Card>> drawPile;
+
     std::vector<std::unique_ptr<Card>> handCards;
+
     std::vector<std::unique_ptr<Card>> discardPile;
 
 public:
@@ -33,7 +36,7 @@ public:
 
     void shuffleDrawPile();
 
-    bool playHandCard(int index, Player& player, std::vector<Character*> target);
+    bool playHandCard(int index, ActionContext& context);
 
     // Hand -> discardPile
     void discardHandCard(int index, bool discardAll = false);

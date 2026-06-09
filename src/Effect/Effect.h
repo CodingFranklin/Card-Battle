@@ -5,30 +5,34 @@
 #ifndef CARDBATTLE_CARDEFFECT_H
 #define CARDBATTLE_CARDEFFECT_H
 
-#include <vector>
+#pragma once
+
 #include <memory>
+#include <vector>
+#include "../Game/GameType.h"
 
-#include "../Entity/Character.h"
-#include "../Entity/Player.h"
-
-
-enum class TargetType;
+class Character;
+class ActionContext;
 
 class Effect {
 private:
     TargetType targetType;
 
+protected:
+    std::vector<Character*> resolveTargets(
+        const ActionContext& context
+    ) const;
+
 public:
+    explicit Effect(TargetType targetType);
+
     virtual ~Effect() = default;
 
-    Effect(TargetType targetType) : targetType(targetType) {}
+    virtual void apply(ActionContext& context) = 0;
 
-    virtual void apply(Player& player, std::vector<Character*>& targets) = 0;
+    [[nodiscard]] TargetType getTargetType() const;
 
     virtual std::unique_ptr<Effect> clone() const = 0;
-
-    TargetType getTargetType() const {return targetType;};
-
 };
 
 

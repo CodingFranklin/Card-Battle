@@ -5,7 +5,8 @@
 #ifndef CARDBATTLE_DAMAGEEFFECT_H
 #define CARDBATTLE_DAMAGEEFFECT_H
 #include "Effect.h"
-#include "../Entity/Player.h"
+#include "../Game/ActionContext.h"
+#include "../Entity/Character.h"
 
 class DamageEffect : public Effect{
 private:
@@ -14,11 +15,16 @@ private:
 public:
     DamageEffect(int damage, TargetType targetType): Effect(targetType), damage(damage) {};
 
-    void apply(Player& player, std::vector<Character*>& targets) override {
+    void apply(ActionContext& context) override {
+        auto targets = resolveTargets(context);
+
+        std::cout << "[DEBUG] damage targets: "
+             << targets.size()
+             << '\n';
+
+
         for (Character* target : targets) {
-            if (target != nullptr && !target->isDead()) {
-                player.dealDamageTo(*target, damage);
-            }
+            context.source.dealDamageTo(*target, damage);
         }
     };
 

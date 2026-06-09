@@ -32,7 +32,6 @@ class Battle {
         void bindEvents();
         void checkBattleEnd();
 
-        std::vector<Character*> resolveTargets(Card* card);
         Enemy* chooseEnemyTarget();
         void printBattleStatus() const;
 };

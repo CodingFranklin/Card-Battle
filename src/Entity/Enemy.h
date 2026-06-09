@@ -4,22 +4,35 @@
 
 #ifndef CARDBATTLE_ENEMY_H
 #define CARDBATTLE_ENEMY_H
+#include <vector>
+
 #include "Character.h"
+#include "../Action/EnemyAction.h"
+
+struct ActionContext;
 
 
 class Enemy : public Character{
-    private:
-        int damage;
-        // TODO action list/array
-        // Action[] actions;
-    public:
-        Enemy(const std::string& name, int maxHealth, int damage);
+private:
+    int damage;
 
-        int getDamage() const;
+    std::vector<EnemyAction> actionList;
+    std::size_t nextActionIndex = 0;
 
-    protected:
-        void handleTurnStart() override;
-        void handleTurnEnd() override;
+public:
+    Enemy(const std::string& name, int maxHealth, int damage);
+
+    void doAction(ActionContext& context);
+
+    void addAction(EnemyAction newAction);
+
+    [[nodiscard]] int getDamage() const;
+
+    void printNextAction() const;
+
+protected:
+    void handleTurnStart() override;
+    void handleTurnEnd() override;
 };
 
 

@@ -5,7 +5,6 @@
 #ifndef CARDBATTLE_PLAYER_H
 #define CARDBATTLE_PLAYER_H
 #include "Character.h"
-#include "Enemy.h"
 #include "../Deck/DeckManager.h"
 
 
