@@ -9,13 +9,13 @@
 
 class Enemy : public Character{
     private:
-        float damage;
+        int damage;
         // TODO action list/array
         // Action[] actions;
     public:
-        Enemy(const std::string& name, float maxHealth, float damage);
+        Enemy(const std::string& name, int maxHealth, int damage);
 
-        float getDamage() const;
+        int getDamage() const;
 
     protected:
         void handleTurnStart() override;

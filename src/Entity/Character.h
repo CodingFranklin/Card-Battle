@@ -11,15 +11,15 @@
 class Character {
     private:
         std::string name;
-        float maxHealth;
-        float curHealth;
-        float armor;
+        int maxHealth;
+        int curHealth;
+        int armor;
     public:
-        Character(const std::string& name, float maxHealth);
-        void takeDamage (float damage);
+        Character(const std::string& name, int maxHealth);
+        void takeDamage (int damage);
         void dealDamageTo(Character& target, int baseDamage);
-        void addArmor(float amount);
-        void gainArmor(float baseArmor);
+        void addArmor(int amount);
+        void gainArmor(int baseArmor);
         void clearArmor();
         bool isDead() const;
 
@@ -30,9 +30,9 @@ class Character {
 
         //getter
         const std::string& getName() const;
-        float getMaxHealth() const;
-        float getCurHealth() const;
-        float getArmor() const;
+        int getMaxHealth() const;
+        int getCurHealth() const;
+        int getArmor() const;
         std::string getStatusText() const;
 
     protected:

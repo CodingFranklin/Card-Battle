@@ -25,7 +25,7 @@ class Player : public Character {
         // TODO objects
 
     public:
-        Player(const std::string& name, float maxHealth, int maxEnergy);
+        Player(const std::string& name, int maxHealth, int maxEnergy);
         bool spendEnergy(int amount);
         void reloadEnergy();
         void gainEnergy(int amount);

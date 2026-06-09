@@ -14,7 +14,7 @@
  * @param name 角色名称
  * @param maxHealth 角色最大生命值，同时作为初始生命值
  */
-Character::Character(const std::string& name, float maxHealth):
+Character::Character(const std::string& name, int maxHealth):
     name(name),
     maxHealth(maxHealth),
     curHealth(maxHealth),
@@ -26,7 +26,7 @@ Character::Character(const std::string& name, float maxHealth):
  * 该方法不会再经过状态效果计算
  * @param damage 已经计算完成的最终伤害值
  */
-void Character::takeDamage(float damage) {
+void Character::takeDamage(int damage) {
     std::cout << name << " receive damage: " << damage << std::endl;
 
     if (armor >= damage) {
@@ -63,7 +63,7 @@ void Character::dealDamageTo(Character& target, int baseDamage) {
  * 直接增加指定数量的护盾，不经过状态效果计算
  * @param amount 直接增加的护盾值
  */
-void Character::addArmor(float amount) {
+void Character::addArmor(int amount) {
     armor += amount;
 
     std::cout << name
@@ -76,7 +76,7 @@ void Character::addArmor(float amount) {
  * 获得经过角色状态效果计算后的最终护盾
  * @param baseArmor 未经过状态效果计算的基础护盾值
  */
-void Character::gainArmor(float baseArmor) {
+void Character::gainArmor(int baseArmor) {
     int finalArmor = statusManager.calculateArmorGain(baseArmor);
 
     armor += finalArmor;
@@ -190,7 +190,7 @@ const std::string& Character::getName() const {
  * 获取角色最大生命值
  * @return 最大生命值
  */
-float Character::getMaxHealth() const {
+int Character::getMaxHealth() const {
     return maxHealth;
 }
 
@@ -198,7 +198,7 @@ float Character::getMaxHealth() const {
  * 获取角色当前生命值
  * @return 当前生命值
  */
-float Character::getCurHealth() const {
+int Character::getCurHealth() const {
     return curHealth;
 }
 
@@ -206,7 +206,7 @@ float Character::getCurHealth() const {
  * 获取角色当前护盾值
  * @return 当前护盾值
  */
-float Character::getArmor() const {
+int Character::getArmor() const {
     return armor;
 }
 

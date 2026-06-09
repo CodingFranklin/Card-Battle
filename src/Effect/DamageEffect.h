@@ -12,7 +12,7 @@ private:
     int damage;
 
 public:
-    DamageEffect(int damage): damage(damage) {};
+    DamageEffect(int damage, TargetType targetType): Effect(targetType), damage(damage) {};
 
     void apply(Player& player, std::vector<Character*>& targets) override {
         for (Character* target : targets) {

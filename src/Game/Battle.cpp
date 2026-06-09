@@ -14,7 +14,7 @@
 
 
 Battle::Battle(Player& player, std::vector<Enemy*>& enemies)
-    : player(player), enemies(enemies), turnManager(), battleOver(false)
+    : player(player), enemies(enemies), battleOver(false)
 {
     bindEvents();
 }
@@ -80,9 +80,13 @@ void Battle::playerAct() {
         return;
     }
 
-    std::vector<Character*> targets = resolveTargets(card);
+    Character* selectedTarget = nullptr;
 
-    player.deckManager.playHandCard(playIndex, player, targets);
+    if (card->requiresSelectedTarget()) {
+        selectedTarget = chooseEnemyTarget();
+    }
+
+    player.deckManager.playHandCard(playIndex, player, selectedTarget);
 }
 
 std::vector<Character *> Battle::resolveTargets(Card *card) {

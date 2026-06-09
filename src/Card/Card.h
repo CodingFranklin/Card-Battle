@@ -54,10 +54,16 @@ public:
     bool canPlay(const Player& player) const;
 
     const std::string& getName() const;
+
     const std::string& getDescription() const;
+
     int getCost() const;
+
     CardType getType() const;
+
     TargetType getTargetType() const;
+
+    bool requiresSelectedTarget() const;
 
     void addEffect(std::unique_ptr<Effect> effect);
 

@@ -4,7 +4,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const std::string &name, float maxHealth, float damage):
+Enemy::Enemy(const std::string &name, int maxHealth, int damage):
     Character(name, maxHealth),
     damage(damage)
 {}
@@ -17,6 +17,6 @@ void Enemy::handleTurnEnd() {
     Character::handleTurnEnd();
 }
 
-float Enemy::getDamage() const {
+int Enemy::getDamage() const {
     return damage;
 }

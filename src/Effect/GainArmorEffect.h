@@ -14,7 +14,7 @@ private:
     int armor;
 
 public:
-    GainArmorEffect(int armor): armor(armor) {};
+    GainArmorEffect(int armor, TargetType targetType): Effect(targetType), armor(armor) {};
 
     void apply(Player& player, std::vector<Character*>& targets) override {
         for (Character* target : targets) {

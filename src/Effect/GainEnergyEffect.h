@@ -10,7 +10,7 @@ class GainEnergyEffect: public Effect {
 private:
     int amount;
 public:
-    GainEnergyEffect(int amount): amount(amount) {}
+    GainEnergyEffect(int amount, TargetType targetType): Effect(targetType), amount(amount) {}
 
     void apply(Player &player, std::vector<Character *> &targets) override {
         player.gainEnergy(amount);

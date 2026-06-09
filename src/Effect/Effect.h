@@ -12,11 +12,22 @@
 #include "../Entity/Player.h"
 
 
+enum class TargetType;
+
 class Effect {
+private:
+    TargetType targetType;
+
 public:
     virtual ~Effect() = default;
+
+    Effect(TargetType targetType) : targetType(targetType) {}
+
     virtual void apply(Player& player, std::vector<Character*>& targets) = 0;
+
     virtual std::unique_ptr<Effect> clone() const = 0;
+
+    TargetType getTargetType() const {return targetType;};
 
 };
 

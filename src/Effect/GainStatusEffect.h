@@ -11,8 +11,8 @@ private:
     std::unique_ptr<StatusEffect> status;
 
 public:
-    GainStatusEffect(std::unique_ptr<StatusEffect> status):
-        status(std::move(status)) {};
+    GainStatusEffect(std::unique_ptr<StatusEffect> status, TargetType targetType):
+        Effect(targetType), status(std::move(status)) {};
 
     void apply(Player& player, std::vector<Character*>& targets) override {
         for (Character* target : targets) {
@@ -23,7 +23,7 @@ public:
     };
 
     std::unique_ptr<Effect> clone() const override {
-        return std::make_unique<GainStatusEffect>(status->clone());
+        return std::make_unique<GainStatusEffect>(status->clone(), getTargetType());
     };
 };
 

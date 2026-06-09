@@ -6,7 +6,8 @@
 #define CARDBATTLE_DECKMANAGER_H
 #include <memory>
 #include <vector>
-#include "../Card/Card.h"
+
+class Card;
 class Character;
 class Player;
 

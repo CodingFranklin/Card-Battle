@@ -10,7 +10,7 @@ class DrawCardEffect : public Effect {
 private:
     int qty;
 public:
-    DrawCardEffect(int qty): qty(qty) {};
+    DrawCardEffect(int qty, TargetType targetType): Effect(targetType), qty(qty) {};
 
     void apply(Player &player, std::vector<Character *> &targets) override {
         player.deckManager.drawCards(qty);

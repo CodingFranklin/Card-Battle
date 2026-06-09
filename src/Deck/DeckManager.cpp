@@ -3,15 +3,16 @@
 #include <random>
 
 #include "../Card/Card.h"
-#include "../Card/Effect/DamageEffect.h"
-#include "../Card/Effect/DrawCardEffect.h"
-#include "../Card/Effect/GainArmorEffect.h"
-#include "../Card/Effect/GainEnergyEffect.h"
-#include "../Card/Effect/GainStatusEffect.h"
+#include "../Effect/DamageEffect.h"
+#include "../Effect/DrawCardEffect.h"
+#include "../Effect/GainArmorEffect.h"
+#include "../Effect/GainEnergyEffect.h"
+#include "../Effect/GainStatusEffect.h"
 #include "../Entity/StatusEffect/PoisonStatus.h"
 #include "../Entity/StatusEffect/StrengthStatus.h"
 #include "../Entity/StatusEffect/VulnerableStatus.h"
 #include "../Entity/StatusEffect/WeakStatus.h"
+#include "../Entity/StatusEffect/DexterityStatus.h"
 //
 // Created by lll on 2026/5/28.
 //

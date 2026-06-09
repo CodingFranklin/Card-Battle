@@ -87,3 +87,14 @@ CardType Card::getType() const {
 TargetType Card::getTargetType() const {
     return targetType;
 }
+
+bool Card::requiresSelectedTarget() const {
+    for (const auto& effect : effects) {
+        if (effect != nullptr &&
+            effect->getTargetType() == TargetType::Enemy) {
+            return true;
+            }
+    }
+
+    return false;
+}

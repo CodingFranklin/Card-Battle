@@ -8,7 +8,7 @@
 
 #include "../Card/Card.h"
 
-Player::Player(const std::string& name, float maxHealth, int maxEnergy):
+Player::Player(const std::string& name, int maxHealth, int maxEnergy):
     Character(name, maxHealth),
     curEnergy(maxEnergy),
     maxEnergy(maxEnergy),
