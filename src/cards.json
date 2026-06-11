@@ -1,0 +1,134 @@
+{
+  "strike": {
+    "name" : "Strike",
+    "description" : "Deal 6 damage.",
+    "card_type" : "Attack",
+    "cost" : 1,
+    "effects" : [
+      {
+        "effect_type" : "DealDamage",
+        "value" : 6,
+        "target_type" : "Single"
+      }
+    ]
+  },
+  "defend": {
+    "name" : "Defend",
+    "description" : "Gain 5 armor.",
+    "card_type" : "Skill",
+    "cost" : 1,
+    "effects" : [
+      {
+        "effect_type" : "GainArmor",
+        "value" : 5,
+        "target_type" : "Self"
+      }
+    ]
+  },
+  "footwork": {
+    "name" : "footwork",
+    "description" : "Gain 2 Dexterity.",
+    "card_type" : "Ability",
+    "cost" : 2,
+    "effects" : [
+      {
+        "effect_type" : "GainStatus",
+        "status_type" : "Dexterity",
+        "value" : 2,
+        "target_type" : "Self"
+      }
+    ]
+  },
+  "bash": {
+    "name" : "bash",
+    "description" : "Deal 8 damage, add 2 vulnerable.",
+    "card_type" : "Attack",
+    "cost" : 2,
+    "effects" : [
+      {
+        "effect_type" : "DealDamage",
+        "value" : 8,
+        "target_type" : "Single"
+      },
+      {
+        "effect_type" : "GainStatus",
+        "status_type" : "Vulnerable",
+        "value" : 2,
+        "target_type" : "Single"
+      }
+    ]
+  },
+  "neutralize": {
+    "name" : "neutralize",
+    "description" : "Deal 3 damage, add 1 weak.",
+    "card_type" : "Attack",
+    "cost" : 2,
+    "effects" : [
+      {
+        "effect_type" : "DealDamage",
+        "value" : 3,
+        "target_type" : "Single"
+      },
+      {
+        "effect_type" : "GainStatus",
+        "status_type" : "Weak",
+        "value" : 1,
+        "target_type" : "Single"
+      }
+    ]
+  },
+  "deadly_poison": {
+    "name" : "deadly_poison",
+    "description" : "Add 5 poison.",
+    "card_type" : "Skill",
+    "cost" : 1,
+    "effects" : [
+      {
+        "effect_type" : "GainStatus",
+        "status_type" : "Poison",
+        "value" : 5,
+        "target_type" : "Single"
+      }
+    ]
+  },
+  "inflame": {
+    "name" : "inflame",
+    "description" : "Gain 2 strength.",
+    "card_type" : "Ability",
+    "cost" : 1,
+    "effects" : [
+      {
+        "effect_type" : "GainStatus",
+        "status_type" : "Strength",
+        "value" : 2,
+        "target_type" : "Self"
+      }
+    ]
+  },
+  "production": {
+    "name" : "production",
+    "description" : "Gain 2 energy.",
+    "card_type" : "Skill",
+    "cost" : 0,
+    "effects" : [
+      {
+        "effect_type" : "GainEnergy",
+        "value" : 2,
+        "target_type" : "Self"
+      }
+    ]
+  },
+  "gods_move": {
+    "name" : "gods_move",
+    "description" : "Draw 3 cards.",
+    "card_type" : "Skill",
+    "cost" : 0,
+    "effects" : [
+      {
+        "effect_type" : "DrawCard",
+        "value" : 3,
+        "target_type" : "Self"
+      }
+    ]
+  }
+}

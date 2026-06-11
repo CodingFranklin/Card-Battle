@@ -2,68 +2,25 @@
 #include <iostream>
 #include <random>
 
-#include "../Effect/DamageEffect.h"
-#include "../Effect/DrawCardEffect.h"
-#include "../Effect/GainArmorEffect.h"
-#include "../Effect/GainEnergyEffect.h"
-#include "../Effect/GainStatusEffect.h"
-#include "../Entity/StatusEffect/PoisonStatus.h"
-#include "../Entity/StatusEffect/StrengthStatus.h"
-#include "../Entity/StatusEffect/VulnerableStatus.h"
-#include "../Entity/StatusEffect/WeakStatus.h"
-#include "../Entity/StatusEffect/DexterityStatus.h"
+#include "DeckManager.h"
+#include "DeckLoader.h"
 
 using namespace std;
-#include "DeckManager.h"
 
 DeckManager::DeckManager():
     mainDeck(vector<unique_ptr<Card>>()),
     drawPile(vector<unique_ptr<Card>>()),
     handCards(vector<unique_ptr<Card>>()),
     discardPile(vector<unique_ptr<Card>>())
-{
-    for (int i=0; i<5; i++) {
-        auto card = make_unique<Card>("打击", "Deal 6 damage.", 1, CardType::Attack);
-        card->addEffect(make_unique<DamageEffect>(6, TargetType::Single));
-        addOneCardToMainDeck(std::move(card));
-    }
-    for (int i=0; i<5; i++) {
-        auto card = make_unique<Card>("防御", "Gain 5 armor.", 1, CardType::Skill);
-        card->addEffect(make_unique<GainArmorEffect>(5, TargetType::Self));
-        addOneCardToMainDeck(std::move(card));
-    }
+{}
 
-    auto specialCard1 = make_unique<Card>("灵动步伐", "Gain 2 dexterity.", 2, CardType::Skill);
-    specialCard1->addEffect(make_unique<GainStatusEffect>(std::make_unique<DexterityStatus>(2), TargetType::Self));
-    addOneCardToMainDeck(std::move(specialCard1));
+bool DeckManager::initializeFromJson(const std::string& cardsFilePath, const std::string& starterDeckFilePath) {
+    mainDeck.clear();
+    drawPile.clear();
+    handCards.clear();
+    discardPile.clear();
 
-    auto specialCard2 = make_unique<Card>("痛击", "Deal 8 damage, add 2 Vulnerable to target.", 2, CardType::Attack);
-    specialCard2->addEffect(make_unique<DamageEffect>(8, TargetType::Single));
-    specialCard2->addEffect(make_unique<GainStatusEffect>(std::make_unique<VulnerableStatus>(2), TargetType::Single));
-    addOneCardToMainDeck(std::move(specialCard2));
-
-    auto specialCard3 = make_unique<Card>("中和", "Deal 3 damage, add 2 Weak to target.", 0, CardType::Attack);
-    specialCard3->addEffect(make_unique<DamageEffect>(3, TargetType::Single));
-    specialCard3->addEffect(make_unique<GainStatusEffect>(make_unique<WeakStatus>(2), TargetType::Single));
-    addOneCardToMainDeck(std::move(specialCard3));
-
-    auto specialCard4 = make_unique<Card>("毒瓶", "Add 5 Point to target.", 1, CardType::Skill);
-    specialCard4->addEffect(make_unique<GainStatusEffect>(make_unique<PoisonStatus>(5), TargetType::Single));
-    addOneCardToMainDeck(std::move(specialCard4));
-
-    auto specialCard5 = make_unique<Card>("燃烧之刃", "Gain 2 Strength.", 1, CardType::Skill);
-    specialCard5->addEffect(make_unique<GainStatusEffect>(make_unique<StrengthStatus>(2), TargetType::Self));
-    addOneCardToMainDeck(std::move(specialCard5));
-
-    auto specialCard6 = make_unique<Card>("神之一手", "Draw 2 cards.", 0, CardType::Skill);
-    specialCard6->addEffect(make_unique<DrawCardEffect>(2, TargetType::None));
-    addOneCardToMainDeck(std::move(specialCard6));
-
-    auto specialCard7 = make_unique<Card>("生产制造", "Gain 2 energy.", 0, CardType::Skill);
-    specialCard7->addEffect(make_unique<GainEnergyEffect>(2, TargetType::None));
-    addOneCardToMainDeck(std::move(specialCard7));
-
-    resetDrawPileFromMainDeck();
+    return DeckLoader::loadMainDeckFromJson(*this, cardsFilePath, starterDeckFilePath);
 }
 
 /**

@@ -1,11 +1,9 @@
 //
 // Created by lll on 2026/5/27.
 //
-#include "random"
 
 #include "Battle.h"
 
-#include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <ostream>
@@ -52,6 +50,8 @@ void Battle::runPlayerTurn() {
 
 void Battle::runEnemyTurn() {
     turnManager.startEnemyTurn();
+
+    checkBattleEnd();
 
     enemyAct();
 

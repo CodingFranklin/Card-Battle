@@ -13,7 +13,6 @@
 #include "Entity/StatusEffect/StrengthStatus.h"
 #include "Game/Battle.h"
 
-
 // TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
 int main() {
@@ -26,6 +25,11 @@ int main() {
 
 
     Player player("诗人", 80.0f, 3);
+
+    if (!player.deckManager.initializeFromJson("cards.json", "starter_deck.json")) {
+        std::cerr << "Failed to initialize player deck from JSON files." << std::endl;
+        return 1;
+    }
 
     Enemy slime("蟑螂", 15.0f, 6.0f);
     Enemy dragon("恶魔", 75.0f, 15.0f);

@@ -1,0 +1,13 @@
+{
+    "cards": [
+        { "cardId": "strike", "quantity": 5 },
+        { "cardId": "defend", "quantity": 5 },
+        { "cardId": "footwork", "quantity": 1 },
+        { "cardId": "bash", "quantity": 1 },
+        { "cardId": "neutralize", "quantity": 1 },
+        { "cardId": "deadly_poison", "quantity": 1 },
+        { "cardId": "inflame", "quantity": 1 },
+        { "cardId": "production", "quantity": 1 },
+        { "cardId": "gods_move", "quantity": 2 }
+    ]
+}

@@ -5,9 +5,11 @@
 #ifndef CARDBATTLE_DECKMANAGER_H
 #define CARDBATTLE_DECKMANAGER_H
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "../Card/Card.h"
+struct ActionContext;
 class Character;
 class Player;
 
@@ -25,6 +27,8 @@ class DeckManager {
 
 public:
     DeckManager();
+
+    bool initializeFromJson(const std::string& cardsFilePath, const std::string& starterDeckFilePath);
 
     void resetDrawPileFromMainDeck();
 

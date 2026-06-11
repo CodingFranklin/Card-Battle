@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 4.2)
 project(CardBattle)
 
+include(FetchContent)
+FetchContent_Declare(
+        nlohmann_json
+        URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
+)
+FetchContent_MakeAvailable(nlohmann_json)
+
 add_executable(CardBattle
         src/main.cpp
         src/Entity/Character.cpp
@@ -14,6 +21,8 @@ add_executable(CardBattle
         src/Game/Battle.h
         src/Deck/DeckManager.cpp
         src/Deck/DeckManager.h
+        src/Deck/DeckLoader.cpp
+        src/Deck/DeckLoader.h
         src/Effect/Effect.h
         src/Effect/DamageEffect.h
         src/Effect/GainArmorEffect.h
@@ -35,6 +44,8 @@ add_executable(CardBattle
         src/Game/GameType.h
         src/Effect/Effect.cpp
 )
+
+target_link_libraries(CardBattle PRIVATE nlohmann_json::nlohmann_json)
 
 target_compile_options(CardBattle PRIVATE
         -finput-charset=UTF-8
